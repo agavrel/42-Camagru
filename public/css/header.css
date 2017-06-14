@@ -1,0 +1,81 @@
+/* css related to View/templats/header.php and Core/Controller.class.php : public function header() */
+
+body
+{
+	margin: 0;
+}
+
+/* menu background (grey) */
+.header
+{
+	height: 2vw;
+	padding: 10px 20px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #24292E;
+}
+
+/* change menu background color on hover */
+.header:hover
+{
+	background-color: BLACK;
+}
+
+/* menu width */
+.container-header
+{
+	width: 100%;
+}
+
+/* remove ugly underlining from links*/
+a:link
+{
+	text-decoration: none;
+}
+
+.bar
+{
+	padding: 20px 20px 20px 20px;
+	position: absolute;
+	height: 3%;
+	width: 100%;
+	font-size: 30px;
+	background-color: #333;
+}
+
+/* navbar: color in pink menu items */
+.navbar-brand
+{
+	top: 50%;
+	color: deeppink;
+	padding-left: 2vw;
+/* nsloz transition */
+  -webkit-transition: color 0.5s, font-size 1s;
+  	 -moz-transition: color 0.5s, font-size 1s;
+   	   -o-transition: color 0.5s, font-size 1s;
+   	      transition: color 0.5s, font-size 1s;
+}
+
+/* make it shine in white on cursor hover */
+.navbar-brand:hover
+{
+	font-size: 40px;
+	color: white;
+	text-shadow: 0 0 3vw white;
+}
+
+/* slight padding between menu bar and content */
+.container
+{
+	padding-top: 5vw;
+}
+
+/* logo picture */
+.logo-picture {
+	position:absolute; top:3vw; left:0;
+	padding-top: 2vw;/*maybe useless ?*/
+	width: 10%;
+	filter: brightness(20%);
+	opacity: 0.3;
+    filter: alpha(opacity=30); /* For IE8 and earlier */
+}
