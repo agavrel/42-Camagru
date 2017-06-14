@@ -1,14 +1,11 @@
 <?php
-
 class ControllerUsergallery extends Controller
 {
 	private static $posts;
-
 	public function view()
 	{
 		self::$posts = self::$sel->query_select('*', 'posts', null, false, 'image_path');
 	}
-
 	private static function displayCom($img_path)
 	{
 		$condition = array(
@@ -24,7 +21,6 @@ class ControllerUsergallery extends Controller
 		}
 		echo '</div>';
 	}
-
 	public function infiniteScroll()
 	{
 		//Get image path
@@ -39,9 +35,9 @@ class ControllerUsergallery extends Controller
 			echo 'null';
 			return ;
 		}
-
 		//Get like
-		$conditions = array(
+		if (isset($_SESSION['auth']) && !empty($_SESSION['auth'])) {
+			$conditions = array(
 								'img_path'	=>	"'" . $info['image_path'] . "'",
 								'login'		=>	"'" . $_SESSION['auth'] . "'"
 							);
@@ -50,7 +46,9 @@ class ControllerUsergallery extends Controller
 			$info['liked'] = 'yes';
 		else
 			$info['liked'] = 'no';
-
+		} else {
+			$info['liked'] = 'no';
+		}
 		//Get Count(Like)
 		$condition = array(
 								'img_path'	=>	"'" . $info['image_path'] . "'"
@@ -58,22 +56,22 @@ class ControllerUsergallery extends Controller
 		$value = "Count(id) AS 'countLikes'";
 		$count = self::$sel->query_select($value, 'likes', $condition);
 		$info['countLikes'] = $count['countLikes'];
-
 		//Get Comments
 		$comments = self::$sel->query_select('login, img_comment', 'comments', $condition, false, 'id');
 		$info['comments'] = $comments;
-
 		echo json_encode($info);
 		echo "|";
 	}
-
 	public static function five_imgs($begin, $form)
 	{
 		$finish = $begin + 5;
-		$condition = array (
-								'login' => "'" . $_SESSION['auth'] . "'"
-							);
-		$likes = self::$sel->query_select('img_path', 'likes', $condition, false);
+		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
+		{
+			$condition = array (
+									'login' => "'" . $_SESSION['auth'] . "'"
+								);
+			$likes = self::$sel->query_select('img_path', 'likes', $condition, false);
+		}
 		$value = "Count(id) AS 'countLikes'";
 		if (empty(self::$posts[$begin]))
 			echo '<h1>You didn\'t take any picture yet</h1>';
@@ -97,6 +95,8 @@ class ControllerUsergallery extends Controller
 					echo '<img class="like" src="../public/resources/empty_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
 				echo '<br>';
 			}
+			else
+				echo '<img class="like" style="display: none;"><br>';
 			$condition = array (
 									'img_path' => "'" . self::$posts[$begin]['image_path'] . "'"
 								);
@@ -106,16 +106,17 @@ class ControllerUsergallery extends Controller
 			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 			{
 				echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
-				echo '<button class="test">Comment</button>';
-				echo '<br>';
-				self::displayCom(self::$posts[$begin]['image_path']);
-				echo '</div>';
+				echo '<button class="btn btn-primary">Comment</button>';
+			} else {
+				echo '<button class="btn btn-primary style="display: none;">Comment</button>';
 			}
+			echo '<br>';
+			self::displayCom(self::$posts[$begin]['image_path']);
+			echo '</div>';
 			echo '<br><br>';
 			$begin++;
 		}
 	}
-
 	public function like(){
 		if (isset($_POST['image_path']) && !empty($_POST['image_path'])) {
 			$values = array (	'id'			=>		'null',
@@ -125,7 +126,6 @@ class ControllerUsergallery extends Controller
 			self::$ins->insert_value('likes', $values);
 		}
 	}
-
 	public function unlike(){
 		if (isset($_POST['image_path']) && !empty($_POST['image_path']))
 		{
@@ -136,7 +136,6 @@ class ControllerUsergallery extends Controller
 			self::$del->delete_value('likes', $condition);
 		}
 	}
-
 	public function showLikers()
 	{
 		if (isset($_POST['image_path']) && !empty($_POST['image_path']))
@@ -152,7 +151,6 @@ class ControllerUsergallery extends Controller
 			}
 		}
 	}
-
 	public function comment()
 	{
 		if (isset($_POST['comment']) && !empty($_POST['comment']))
@@ -174,7 +172,6 @@ class ControllerUsergallery extends Controller
 									'image_path'	=>		"'" . $_POST['img_path'] . "'"
 								);
 			$req = self::$sel->query_select('login', 'posts', $condition);
-
 			if ($req['login'] !== $_SESSION['auth'])
 			{
 				$condition = array(
@@ -182,11 +179,11 @@ class ControllerUsergallery extends Controller
 									);
 				$q2 = self::$sel->query_select('email', 'users',  $condition);
 				$emailTo = htmlspecialchars($q2['email']);
-				$emailFrom = 'no-reply@camagru.com';
+				$emailFrom = 'tatante@camagru.com';
 				$subject = "Camagru - " . $_SESSION['auth'] . " commented your photo";
 				$img_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/" . $_POST['img_path'];
 				$profile_link = "http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/Userprofile/view/" . $req['login'];
-				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='$profile_link'>Click here to see the comment</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
+				$message = "Hi " . ucfirst($req['login']) . "<br/> Awesome, " . $_SESSION['auth'] . " just comments your photo !<br/> <a href='$profile_link'>Click here to see his profile page</a><br/><label>Comment:</label><br/><p>" . $_POST['comment'] . "</p>";
 				$headers = "From: " . $emailFrom . "\r\n";
 				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 				mail($emailTo, $subject, $message, $headers);
@@ -195,5 +192,4 @@ class ControllerUsergallery extends Controller
 		echo json_encode(array('user' => "{$_SESSION['auth']}"));
 	}
 }
-
 ?>

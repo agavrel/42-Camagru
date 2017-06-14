@@ -22,7 +22,7 @@
 	</div>
 <!-- a) Div visualize -->
 	<div id="visualize" style="display: block;">
-		<div><video id="video"></video></div>
+		<video id="video"></video>
 <!-- color filter -->
 <!-- https://stackoverflow.com/questions/30408939/how-to-save-image-from-canvas-with-css-filters
 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter -->
@@ -46,8 +46,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
 	</div>
 <!-- end of a) div -->
 
-<!-- Video -->	
-	
+<!-- Video -->
+
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
 	</div>

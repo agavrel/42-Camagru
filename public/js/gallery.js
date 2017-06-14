@@ -122,6 +122,7 @@ function comment(evt)
 	}
 }
 
+/* infinite pagination */
 window.onscroll = function() {
 	comButton = document.querySelectorAll(".test");
 	var posY = window.pageYOffset,
@@ -203,6 +204,7 @@ window.onscroll = function() {
 		}
 	}
 };
+/* credit: arlecomte && dzheng */
 
 function like(likeClicked, xhr)
 {
@@ -223,4 +225,4 @@ function unlike(likeClicked, xhr)
 	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
 	xhr.send('image_path=' + likeClicked.id);
 }
-Contact GitHub API Training Shop Blog About
+//Contact GitHub API Training Shop Blog About

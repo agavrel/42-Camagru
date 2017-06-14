@@ -1,5 +1,4 @@
 /* css related to View/templats/header.php and Core/Controller.class.php : public function header() */
-
 body
 {
 	margin: 0;
@@ -15,19 +14,13 @@ body
 	background-color: #24292E;
 }
 
-/* change menu background color on hover */
-.header:hover
-{
-	background-color: BLACK;
-}
-
 /* menu width */
 .container-header
 {
-	width: 100%;
+
 }
 
-/* remove ugly underlining from links*/
+/* remove ugly underlining from href links */
 a:link
 {
 	text-decoration: none;
@@ -35,20 +28,24 @@ a:link
 
 .bar
 {
-	padding: 20px 20px 20px 20px;
-	position: absolute;
-	height: 3%;
-	width: 100%;
-	font-size: 30px;
-	background-color: #333;
+/* add transparent background, credits : https://codepen.io/pirrera/pen/zapbh */
+	text-align: center;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
 }
 
 /* navbar: color in pink menu items */
 .navbar-brand
 {
-	top: 50%;
-	color: deeppink;
-	padding-left: 2vw;
+	padding: 18px;
+	font-family: "Open Sans";
+	text-transform:uppercase;
+	color: rgba(0, 35, 122, 0.5);
+	font-size: 18px;
+	text-decoration: none;
+	display: block;
+	display: inline-block;
+	color: black;
 /* nsloz transition */
   -webkit-transition: color 0.5s, font-size 1s;
   	 -moz-transition: color 0.5s, font-size 1s;
@@ -59,9 +56,15 @@ a:link
 /* make it shine in white on cursor hover */
 .navbar-brand:hover
 {
+	border-bottom: hidden;
 	font-size: 40px;
 	color: white;
 	text-shadow: 0 0 3vw white;
+}
+
+.navbar-current
+{
+	border-bottom: 3px solid black;
 }
 
 /* slight padding between menu bar and content */

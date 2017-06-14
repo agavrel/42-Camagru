@@ -24,11 +24,16 @@ class Controller
 	{
 		if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 		{
-			$profile = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view/' . $_SESSION['auth'] .'">Profile</a>'; //  ".'$_SESSION['login'] .'" 
-			$camjs = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view">Cam JS</a>';
-			$camphp = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view">Cam PHP</a>';
-			$gallery = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Usergallery/view">Gallery</a>';
-			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">SIGN OUT</a>';
+			$currentPage = Routeur::$url['controller'];
+		//	echo Routeur::$url['controller'];
+			$home = '<a class="navbar-brand '.($currentPage === 'Userindex' ? 'navbar-current':"").'" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view' .'">Camagru</a>'; //  ".'$_SESSION['login'] .'"
+			$profile = '<a class="navbar-brand '.($currentPage === 'Userprofile' ? 'navbar-current':"").'" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userprofile/view/' . $_SESSION['auth'] .'">Profile</a>'; //  ".'$_SESSION['login'] .'"
+			$camjs = '<a class="navbar-brand '.($currentPage === 'Userindex' ? 'navbar-current':"").'" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindex/view">Cam JS</a>';
+			$camphp = '<a class="navbar-brand '.($currentPage === 'Userindexphp' ? 'navbar-current':"").'" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Userindexphp/view">Cam PHP</a>';
+			$gallery = '<a class="navbar-brand '.($currentPage === 'Usergallery' ? 'navbar-current':"").'" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Usergallery/view">Gallery</a>';
+			$disconnect = '<a class="navbar-brand" href="http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Authsignin/signOut">Sign Out</a>';
+
+
 		}
 		require_once('View/templates/header.php');
 	}
