@@ -22,6 +22,7 @@
 		<div class="icones-bar">
 			<?php if (isset($home))echo $home; ?>
 			<?php if (isset($cam))echo $cam; ?>
+			<?php if (isset($camphp))echo $camphp; ?>
 			<?php if (isset($gallery))echo $gallery; ?>
 			<?php if (isset($profile))echo $profile; ?>
 			<?php if (isset($disconnect))echo $disconnect; ?>

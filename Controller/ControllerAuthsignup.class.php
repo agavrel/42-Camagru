@@ -4,13 +4,18 @@ class ControllerAuthsignup extends Controller
 {
 	public function view()
 	{
-		
+
 	}
 
 	public function signUp()
 	{
 		if ($_POST['signup'] === 'Submit' && $_POST['password'] === $_POST['password2'])
 		{
+			if (!isset($errors['password']) && !preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/', $_POST['password']))
+			{
+				$this->add_buff('weak_pwd', '<div class="alert alert-danger">Unsecured Password, Please use at combination of lowercase, uppercase letters and digits with special character</div>');//check for secured password
+				return ;
+			}
 			$check = $this->checker($_POST);
 			if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
 				$this->add_buff('invalid_email', '<div class="alert alert-danger">Invalid email</div>');
@@ -25,11 +30,10 @@ class ControllerAuthsignup extends Controller
 									'email_confirmed' 	=>	"'no'",
 									'admin'				=>	"'no'"
 								);
-				$password = hash('whirlpool', $_POST['password']);
-				echo $password;
+			$password = hash('whirlpool', $_POST['password']);
 				$attributes = array(
-										$_POST['login'], 
-										$_POST['email'], 
+										$_POST['login'],
+										$_POST['email'],
 										$password
 									);
 				$insert->insert_value('users', $values, $attributes);
@@ -68,7 +72,7 @@ class ControllerAuthsignup extends Controller
 	private function sendEmail($userinfo)
 	{
 		$emailTo = htmlspecialchars($userinfo['email']);
-		$emailFrom = 'tasoeur@camagru.com';
+		$emailFrom = 'no-reply@camagru.com';
 		$subject = "Camagru - Confirm Your Account";
 		$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:" . PORT . "/" . Routeur::$url['dir'] . "/Authsignin/validEmail/" . $_POST['login'] . "'>Confirm account</a>";
 		$headers = "From: " . $emailFrom . "\r\n";

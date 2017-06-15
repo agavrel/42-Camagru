@@ -103,14 +103,8 @@
 /* take picture function */
 	startbutton.addEventListener('click', function(ev){
 		takePicture();
-		var video_img = document.getElementById('video');
-		var myimg = video_img.getElementsByTagName('img')[0];
-		var mysrc = myimg.src;
-//		var video_img = document.querySelectorAll("#video img");
-		myimg.classList.add('flash');
-		setTimeout(function () {
-			myimg.classList.remove('flash');}, 900);
 		ev.preventDefault();
+
 	}, false);
 
 /* add filter function */
@@ -194,15 +188,16 @@
 			container.removeChild(container.childNodes[0]);
 		if (alertMessage_fail.length != 0)
 			container.removeChild(container.childNodes[0]);
+		flash();
 	}
 
 /* Function to flash screen*/
 	function flash(e){
-	  $('.flash')
-	   .show()  //show the hidden div
-	   .animate({opacity: 0.5}, 300)
-	   .fadeOut(300)
-	   .css({'opacity': 1});
+  	  	var myimg = document.getElementsByTagName('body')[0];
+  	  //		var video_img = document.querySelectorAll("#video img");
+  	  	myimg.classList.add('flash');
+  	  	setTimeout(function () {
+  	  	myimg.classList.remove('flash');}, 300);
 	}
 
 /* Function to save picture */
@@ -215,6 +210,7 @@
 		xhr.open('POST', url() + 'Userindex/save', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data);
+
 	}
 
 	function url(){
@@ -222,5 +218,6 @@
 		url = url.split("/");
 		return(url[0] + '//' + url[2] + '/' + url[3] + '/');
 	}
+
 
 })();

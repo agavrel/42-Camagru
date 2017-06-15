@@ -6,6 +6,8 @@ html {
    linear-gradient(135deg, hsla(253, 95%, 42%, 1) 10%, hsla(253, 95%, 42%, 0) 80%),
    linear-gradient(225deg, hsla(179, 91%, 45%, 1) 10%, hsla(179, 91%, 45%, 0) 80%),
    linear-gradient(315deg, hsla(119, 96%, 49%, 1) 100%, hsla(119, 96%, 49%, 0) 70%);
+
+   background-attachment: fixed;
 }
 
 body {
@@ -43,30 +45,7 @@ label {
 	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-.flash
-{
-	animation: cameraFlash .3s .3s alternate-reverse 1;
-}
-
-@keyframes cameraFlash {
-from {box-shadow: 0;}
-to {box-shadow: inset 0 0 0 100px #fff;}
-}
-
-#video:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-#video.flash:before {
-  content: '';
-  animation: cameraFlash .3s .3s alternate-reverse 1;
-}
-
-a
-{
+a {
 	color: #337ab7;
 	text-decoration: none;
 }
@@ -74,6 +53,43 @@ a
 .com_container {
 	text-align: left;
 }
+
+/* css for flashing picture, refer to cam.js for how it is handled */
+.flash {
+	animation: cameraFlash .1s .1s alternate-reverse 1;
+}
+@keyframes cameraFlash {
+from {box-shadow: 0;}
+to {box-shadow: inset 0 0 0 100px #fff;}
+}
+body:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+body.flash:before {
+  content: '';
+  animation: cameraFlash .9s .9s alternate-reverse 1;
+}
+
+/* Css for helpbox */
+#helpBox {
+    display: none;
+    background: black;
+    color: white;
+    position: fixed;
+    padding-right: 20px;
+    z-index: 1;
+    border: 1px solid grey;
+    border-radius: 8px;
+    box-shadow: 4px 3px 10px #888888;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+}
+
 
 /* css to check profile picture */
 img.images {
@@ -92,11 +108,11 @@ img.cross {
 	z-index: 2000;
 }
 
-div.div_image {
+.div_image {
 	height: 200px;
 	width: 300px;
 	display: inline-block;
-	margin: 5px;
+	margin: 5px 5px 50px 5px;
 }
 
 div.img-thumbnail {
@@ -127,8 +143,20 @@ div.div_filters {
 #gallery_container {
 	text-align: center;
 	margin: auto;
+	color: white;
 }
 
+.userLink {
+	color : gold;
+}
+
+.countLikes {
+	color : gold;
+}
+
+.starter-template {
+	color : white;
+}
 .img-thumbnail {
 	border: 1px solid #909090;
 	padding: 12px 10px 10px 10px;
@@ -197,22 +225,6 @@ img.image {
 	width: 100%;
 	max-height: 375px;
 	height: 100%;
-}
-
-/* Css for helpbox */
-#helpBox {
-    display: none;
-    background: black;
-    color: white;
-    position: fixed;
-    padding-right: 20px;
-    z-index: 1;
-    border: 1px solid grey;
-    border-radius: 8px;
-    box-shadow: 4px 3px 10px #888888;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%, -50%);
 }
 
 #howToUse
@@ -311,20 +323,28 @@ img.image {
 	font-size: 14px;
 	margin: 5px auto;
 	border-radius: 5px;
-	overflow: auto;
 	width: 198px;
 	height: 35px;
 	outline: 0;/* no blue arround button */
 	text-shadow: 0 0 3px white; /* light text */
 	display: inline-block;
 	border: 1px solid white;
+
+/* adding a custom arrow button : */
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 3px;
+    text-overflow: '';
+	overflow: hidden;
+	background: url(../resources/arrow_select.png) no-repeat right #333;
+	background-size: auto 80%;
 }
 
 .btn {
 	text-shadow: 0 0 3px white;  /* light text */
 	display: inline-block;
+	margin: 5px auto;
 	padding: 6px 12px;
-	margin-bottom: 0;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.42857143;
@@ -350,9 +370,12 @@ img.image {
 }
 
 /*------------- Drag and Drop -------------------*/
+#upload_mode {
+	display:none;
+}
 input[type='file'] {
     border: 3px dashed #999;
-    padding: 140px 50px 10px 50px;
+    padding: 140px 200px 10px 50px;
     cursor: move;
     position:relative;
 }

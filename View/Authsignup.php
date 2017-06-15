@@ -6,6 +6,8 @@
 		echo $email_sent;
 	if (isset($wrong_password_confirmation))
 		echo $wrong_password_confirmation;
+	if (isset($weak_pwd))
+		echo $weak_pwd;
 	if (isset($already_taken))
 		echo $already_taken;
 	if (isset($invalid))
@@ -15,8 +17,8 @@
 <form method="post" action="<?= Routeur::redirect('authsignup/signUp'); ?>">
     <?= $form->input('login', 'Login'); ?>
     <?= $form->input('email', 'Email address'); ?>
-    <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
-    <?= $form->input('password2', 'Password confirmation', ['type' => 'password']); ?> 
+    <?= $form->input('password', 'Password', ['type' => 'password']); ?>
+    <?= $form->input('password2', 'Password confirmation', ['type' => 'password']); ?>
     <?= $form->submit('signup', 'Submit', 'btn btn-primary'); ?>
 </form>
 

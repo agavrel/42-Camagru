@@ -46,26 +46,33 @@ a:link
 	display: block;
 	display: inline-block;
 	color: black;
-/* nsloz transition */
+/* nsloz transition
   -webkit-transition: color 0.5s, font-size 1s;
   	 -moz-transition: color 0.5s, font-size 1s;
    	   -o-transition: color 0.5s, font-size 1s;
-   	      transition: color 0.5s, font-size 1s;
+   	      transition: color 0.5s, font-size 1s;*/
 }
 
 /* make it shine in white on cursor hover */
 .navbar-brand:hover
 {
-	border-bottom: hidden;
-	font-size: 40px;
+	box-shadow: hidden;
+/*	font-size: 40px; */
 	color: white;
 	text-shadow: 0 0 3vw white;
 }
 
+/* box-shadow is to outline a category */
 .navbar-current
 {
-	border-bottom: 3px solid black;
+	box-shadow: 0 2px 0 black;
 }
+
+.navbar-current:hover
+{
+	box-shadow: 0 2px 0 white;
+}
+
 
 /* slight padding between menu bar and content */
 .container

@@ -44,10 +44,8 @@ function getUser(evt)
 	xhr.send('image_path=' + likeClicked);
 	xhr.onload = function ()
 	{
-		if (xhr.readyState === xhr.DONE)
+		if ((xhr.readyState === xhr.DONE) && (xhr.status === 200 || xhr.status === 0))
 		{
-			if (xhr.status === 200 || xhr.status === 0)
-			{
 				var string = xhr.responseText.substring(0, xhr.responseText.indexOf('<')).split(',');
 				string.splice(string.length - 1, 1);
 				if (string.length > 0) {
@@ -62,7 +60,6 @@ function getUser(evt)
 					}, string)
 					popUp.style.display = "inline-block";
 				}
-			}
 		}
 	}
 }
@@ -101,12 +98,9 @@ function comment(evt)
 		xhr.open('POST', url() + 'Usergallery/comment', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("comment=" + commenText + "&img_path=" + imgPath);
-
 		xhr.onload = function ()
 		{
-			if (xhr.readyState === xhr.DONE)
-			{
-				if (xhr.status === 200 || xhr.status == 0)
+			if ((xhr.readyState === xhr.DONE) && (xhr.status === 200 || xhr.status == 0))
 				{
 					var string = xhr.responseText.substring(0, xhr.responseText.indexOf("}") + 1);
 					var json = JSON.parse(string);
@@ -117,12 +111,11 @@ function comment(evt)
 					commentHTML.innerHTML = user + commenText;
 					button.previousSibling.lastChild.value = "";
 				}
-			}
 		};
 	}
 }
 
-/* infinite pagination */
+/* infinite pagination, credit: arlecomte && dzheng */
 window.onscroll = function() {
 	comButton = document.querySelectorAll(".test");
 	var posY = window.pageYOffset,
@@ -204,7 +197,7 @@ window.onscroll = function() {
 		}
 	}
 };
-/* credit: arlecomte && dzheng */
+
 
 function like(likeClicked, xhr)
 {
@@ -225,4 +218,3 @@ function unlike(likeClicked, xhr)
 	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
 	xhr.send('image_path=' + likeClicked.id);
 }
-//Contact GitHub API Training Shop Blog About
