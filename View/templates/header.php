@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="better than instagram">
 	<meta name="author" content="angavrel">
-	<link rel="icon" type="image/png" href="../../public/resources/favicon.png">
+	<link rel="icon" type="image/png" href="../public/resources/favicon.ico">
 	<title>Camagru</title>
 	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/style.css" rel="stylesheet">
 	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/header.css" rel="stylesheet">
