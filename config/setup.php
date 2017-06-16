@@ -1,7 +1,7 @@
 <?php
 
 require 'database.php';
-require '../Core/Model.class.php';
+// require '.Core/Model.class.php';
 
 $database = new Model();
 $database->init_connection("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);
@@ -43,4 +43,3 @@ $database->query("INSERT INTO users VALUES
 (null, 'root', 'admin@camagru.io', 'cb693a235e2fdbc6cf9a4a2174a3ede6a29d58af5974fa5212e4600103cb869feaff17810c8b2c8a91314a61a4ded7dc6ce3b7b86d75bb62f1686595bf0271bb', 'yes', 'yes')
 ;");
 ?>
-<a href="http://localhost:<?= substr($_SERVER['HTTP_HOST'], -4); ?>/<?= explode('/', $_SERVER['REQUEST_URI'])[1] ?>/Authsignin/signIn">Home</a>
