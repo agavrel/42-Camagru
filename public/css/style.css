@@ -33,6 +33,7 @@ label {
 
 /* css for registering and loging in */
 .form-control {
+	padding: 0 15px 0 15px;
 	outline: 0;/* no blue arround button */
 	display: block;
 	width: 100%;
@@ -159,7 +160,7 @@ div.div_filters {
 }
 .img-thumbnail {
 	border: 1px solid #909090;
-	padding: 12px 10px 10px 10px;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 	border-radius: 2%;
 	margin: auto;
 }
@@ -204,7 +205,7 @@ div label input {
    margin-right:100px;
 }
 
-#canvas {
+.canvas {
 	border: 1px solid black;
 	margin-top: 10px;
 	max-width: 500px;
@@ -373,6 +374,7 @@ img.image {
 #upload_mode {
 	display:none;
 }
+
 input[type='file'] {
     border: 3px dashed #999;
     padding: 140px 200px 10px 50px;
@@ -392,4 +394,32 @@ input[type='file']:before {
     font-size: 18px;
     font-weight: bold;
     color: #999;
+}
+
+#photo
+{
+	margin-top: 10px;
+	width: 500px;
+	height: 375px;
+}
+
+/* used for gallery */
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+
+.by_likes {
+	padding: 0 10px 0 10px;
+}
+
+.comment {
+	padding: 0 10px 0 10px;
+}
+
+.like {
+	position: absolute;
+	left: 50%;
 }

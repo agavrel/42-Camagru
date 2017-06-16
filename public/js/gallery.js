@@ -9,7 +9,6 @@ var likeButton = document.querySelectorAll(".like"),
 	i = 0,
 	length = likeButton.length;
 
-
 for (i; i < length; i++) {
 	if (document.addEventListener) {
 		var xhr = new XMLHttpRequest();
@@ -148,7 +147,7 @@ window.onscroll = function() {
 						i = 0;
 					if (string.indexOf('null') === 0 || string.indexOf('<!DOCTYPE') === 0)
 						return ;
-					json = JSON.parse(string);
+						json = JSON.parse(string);
 					cloneDiv.removeChild(cloneDiv.lastChild);
 
 					if (json.image_path)
@@ -199,6 +198,7 @@ window.onscroll = function() {
 };
 
 
+
 function like(likeClicked, xhr)
 {
 	xhr.open('POST', url() + 'Usergallery/like', true);
@@ -207,6 +207,7 @@ function like(likeClicked, xhr)
 	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) + 1;
 	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
 	xhr.send('image_path=' + likeClicked.id);
+
 }
 
 function unlike(likeClicked, xhr)
@@ -218,3 +219,5 @@ function unlike(likeClicked, xhr)
 	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
 	xhr.send('image_path=' + likeClicked.id);
 }
+
+/* share on facebook */

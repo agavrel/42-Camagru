@@ -1,4 +1,5 @@
 <script>
+	/* choose between file upload and camera mode */
 	function cam_up() {
 			var link = document.getElementById('upload_mode');
 			var link2 = document.getElementById('camera_mode');
@@ -15,22 +16,7 @@
     		 	link2.style.display = 'none';
   	  		}
     }
-/* preview file mannually dragged */
-	var imageLoader = document.getElementById('filePhoto');
-    imageLoader.addEventListener('change', handleImage, false);
-	function handleImage(e) {
-	    var reader = new FileReader();
-	    reader.onload = function (event) {
-
-	        $('.uploader img').attr('src',event.target.result);
-	    }
-	    reader.readAsDataURL(e.target.files[0]);
-}
-
-
-
 </script>
-
 
 <?php $form = new Form($_POST); ?>
 <!-- Help Box -->
@@ -64,52 +50,48 @@ Camera Mode or Upload a File?
 </p>
 </div>
 
-	<div id="upload_mode" visibility="hidden">
-		<img src=""/>
-		<input type='file' id='getval' onchange="previewFile()"/>
-			<div><button id="upload_img" class="btn btn-primary" >Upload an image</button></div>
-			<img id="preview_img" style = ""></img>
-			<canvas id= "canvas_up"></canvas>
+<!-- a) Div upload -->
+<div id="upload_mode" visibility="hidden">
+	<input type='file' id='getval'/></input>
+	<div>
+		<img src="" id="photo" display="hidden" ahref="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
 	</div>
 
+</div>
 
-
-
-<!-- a) Div visualize -->
-	<div id="camera_mode">
-		<div id="visualize" style="display: block;">
-			<video id="video"></video>
-	<!-- color filter -->
-	<!-- https://stackoverflow.com/questions/30408939/how-to-save-image-from-canvas-with-css-filters
-	https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter -->
-			<script>function SetFilter(myfilter) {
-				   		video.setAttribute("class", myfilter.value);}
-			</script>
-			 <select class="btn-primary" id="filter_type" onchange="SetFilter(this)">
-			 	<option value="" id="filter_none" selected="selected">No Filters</option>
-			    <option value="filter_greyscale">Greyscale</option>
-			    <option value="filter_blur">Blur</option>
-			    <option value="filter_sepia">Sepia</option>
-			    <option value="filter_contrast">Contrast</option>
-			    <option value="filter_brightness">Brightful</option>
-			    <option value="filter_opacity">Transparent</option>
-			    <option value="filter_saturate">Saturate</option>
-			</select>
-	<!-- Take Picture -->
-				<button id="startbutton" class="btn btn-primary">Take picture</button>
-	<!-- Add Filter -->
-				<button id="addfilter" class="btn btn-primary">Add filter</button>
-		</div>
+<!-- b) Div visualize -->
+<div id="camera_mode">
+	<div id="visualize" style="display: block;">
+		<video id="video"></video>
+<!-- color filter -->
+<!-- https://stackoverflow.com/questions/30408939/how-to-save-image-from-canvas-with-css-filters
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter -->
+		<script>function SetFilter(myfilter) {
+			   		video.setAttribute("class", myfilter.value);}
+		</script>
+		 <select class="btn-primary" id="filter_type" onchange="SetFilter(this)">
+		 	<option value="" id="filter_none" selected="selected">No Filters</option>
+		    <option value="filter_greyscale">Greyscale</option>
+		    <option value="filter_blur">Blur</option>
+		    <option value="filter_sepia">Sepia</option>
+		    <option value="filter_contrast">Contrast</option>
+		    <option value="filter_brightness">Brightful</option>
+		    <option value="filter_opacity">Transparent</option>
+		    <option value="filter_saturate">Saturate</option>
+		</select>
+<!-- Take Picture -->
+			<button id="startbutton" class="btn btn-primary">Take picture</button>
+<!-- Add Filter -->
+			<button id="addfilter" class="btn btn-primary">Add filter</button>
 	</div>
-<!-- end of a) div -->
-
-<!-- Video -->
-
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
 	</div>
-	<canvas id="canvas" style="border:1px solid black;"><img id="canvas_img"></img></canvas>
+	<canvas class="canvas"></canvas>
+</div>
+<!-- end of b) div -->
 
+<!-- Video -->
 
 
 <!-- Save Picture -->

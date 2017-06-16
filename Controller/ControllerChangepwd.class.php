@@ -2,7 +2,7 @@
 
 
 /**
-* 
+*
 */
 class ControllerChangepwd extends Controller
 {
@@ -27,6 +27,7 @@ class ControllerChangepwd extends Controller
 							);
 				self::$up->update_value('users', $set, $conditions);
 				$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
+				// redirect to sign in page !!
 			}
 			else
 				$this->add_buff('wrong_link', '<div class="alert alert-danger">Url address not valid</div>');

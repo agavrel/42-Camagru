@@ -11,13 +11,14 @@ class Form
     public function surround($html, $surround = 'p', $class = null)
     {
         return "<{$surround} class=\"$class\";>{$html}</{$surround}>";
-    } 
+    }
 
     public function input($name, $label, $options = [], $htmlclass = "form-control", $require = 'true')
     {
         $type = isset($options['type']) ? $options['type'] : 'text';
         $label = '<label>' . $label . '</label>';
-        $input = '<input class="' . $htmlclass . '" type="' . $type . '" name="' . $name . '" required=' . $require . '>';
+		$pholder = "Your comment here";
+        $input = '<input class="' . $htmlclass . '" type="' . $type . '" name="' . $name . '" required=' . $require . 'placeholder='. $pholder . '">';
         return $this->surround($label . $input);
     }
 
@@ -34,5 +35,4 @@ class Form
         $img .= '>';
         return $this->surround($img);
     }
-
 }

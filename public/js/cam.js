@@ -4,8 +4,9 @@
   var streaming = false,
 	  video       	= document.querySelector('#video'),
 	  cover       	= document.querySelector('#cover'),
-	  canvas      	= document.querySelector('#canvas'),
+	  canvas      	= document.querySelector('.canvas'),
 	  photo       	= document.querySelector('#photo'),
+	  upload      	= document.querySelector('#getval'),
 	  startbutton 	= document.querySelector('#startbutton'),
 	  saveButton	= document.querySelector('#save'),
 	  addFilter 	= document.querySelector('#addfilter'),
@@ -48,6 +49,12 @@
 	how2Use.addEventListener('click', function() {
 		helpBox.style.display = "inline-block";
 		cam_container.setAttribute('class', 'filter_blur');
+	})
+
+/* display help on click and blur background, excluding menu items */
+	upload.addEventListener('change', function(ev) {
+		previewFile();
+		ev.preventDefault();
 	})
 
 /* close help if click on close button... */
@@ -180,7 +187,6 @@
 		}
 		ctx.drawImage(video, 0, 0, width, height);
 		var data = canvas.toDataURL('image/png');
-		saveButton.style.display = 'inline';
 		var alertMessage_ok = document.getElementsByClassName('alert alert-success'),
 			alertMessage_fail = document.getElementsByClassName('alert alert-danger'),
 			container = document.getElementById('cam_container');
@@ -188,7 +194,25 @@
 			container.removeChild(container.childNodes[0]);
 		if (alertMessage_fail.length != 0)
 			container.removeChild(container.childNodes[0]);
+		saveButton.style.display = 'inline';
 		flash();
+	}
+
+	/* preview file mannually dragged */
+	function previewFile() {
+	//	var saveButton	= document.querySelector('#save'),
+		var preview = document.querySelector('#photo');
+		var file    = document.querySelector('input[type=file]').files[0];
+		var reader  = new FileReader();
+
+		reader.addEventListener("load", function () {
+			preview.src = reader.result;
+		}, false);
+		if (file)
+			reader.readAsDataURL(file);
+		var preview_img = document.getElementById('photo');
+			preview_img.classList.add('.preview_img');
+		saveButton.style.display = 'inline';
 	}
 
 /* Function to flash screen*/
@@ -203,10 +227,9 @@
 /* Function to save picture */
 	function savePicture()	{
 	var head = /^data:image\/(png|jpeg);base64,/,
-		data = '',
-		xhr = new XMLHttpRequest();
-
+		xhr = new XMLHttpRequest(),
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
+
 		xhr.open('POST', url() + 'Userindex/save', true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send('contents=' + data);
@@ -218,6 +241,5 @@
 		url = url.split("/");
 		return(url[0] + '//' + url[2] + '/' + url[3] + '/');
 	}
-
 
 })();

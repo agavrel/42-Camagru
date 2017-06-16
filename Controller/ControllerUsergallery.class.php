@@ -79,12 +79,23 @@ class ControllerUsergallery extends Controller
 		{
 			$bool = false;
 			echo '<div class="img-thumbnail">';
-			echo 'Posted by ';
-			echo $form->surround(self::$posts[$begin]['login'], 'a', 'userLink');
+			/* image */
 			echo $form->img('../' . self::$posts[$begin]['image_path'], 'image');
+			/* user */
+			echo '<div class="by_likes">
+				<p class="alignleft">Posted by '; echo $form->surround(self::$posts[$begin]['login'], 'a', 'userLink'); echo '</p>';
+			/* like counter */
+			$condition = array ('img_path' => "'" . self::$posts[$begin]['image_path'] . "'");
+			$req = self::$sel->query_select($value, 'likes', $condition);
+			echo '<p class="alignright">';
+			$output = $req['countLikes'] . " like" . ($req['countLikes'] > 1 ? "s" : "");
+			echo $form->surround($output, 'a', 'countLikes');
+			echo '</p></div>';
+			/* like button */
 			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 			{
 				foreach ($likes as $v) {
+
 					if ($v['img_path'] === self::$posts[$begin]['image_path'])
 					{
 						echo '<img class="like" src="../public/resources/colored_heart.png" id="' . self::$posts[$begin]['image_path'] . '" />';
@@ -97,15 +108,15 @@ class ControllerUsergallery extends Controller
 			}
 			else
 				echo '<img class="like" style="display: none;"><br>';
-			$condition = array (
-									'img_path' => "'" . self::$posts[$begin]['image_path'] . "'"
-								);
-			$req = self::$sel->query_select($value, 'likes', $condition);
-			$output = $req['countLikes'] . " like" . ($req['countLikes'] > 1 ? "s" : "");
-			echo $form->surround($output, 'a', 'countLikes');
+
 			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 			{
-				echo $form->input('comment', 'Comment this photo', null, 'form-control', false);
+				echo $form->input('comment', null, null, 'form-control', false);
+		
+			//	echo discuss about it with Arnaud
+
+
+
 				echo '<button class="btn btn-primary">Comment</button>';
 			} else {
 				echo '<button class="btn btn-primary style="display: none;">Comment</button>';
