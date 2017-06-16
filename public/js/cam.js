@@ -52,10 +52,7 @@
 	})
 
 /* display help on click and blur background, excluding menu items */
-	upload.addEventListener('change', function(ev) {
-		previewFile();
-		ev.preventDefault();
-	})
+	upload.addEventListener('change',previewFile);
 
 /* close help if click on close button... */
 	close.addEventListener('click', function(){
@@ -199,25 +196,37 @@
 	}
 
 	/* preview file mannually dragged */
-	function previewFile() {
-	//	var saveButton	= document.querySelector('#save'),
-		var preview = document.querySelector('#photo');
-		var file    = document.querySelector('input[type=file]').files[0];
-		var reader  = new FileReader();
-
-		reader.addEventListener("load", function () {
-			preview.src = reader.result;
-		}, false);
+	// for eg const obj = { id: 1};
+	// const { id } = obj;
+	// destructuring for handles error of undefined.
+	function previewFile({ target: { files } }) {
+		const img = new Image();
+		const _URL = window.URL || window.webkitURL;
+		// const { files } = target;
+		const file = files[0];
+		img.onload = () => {
+		}
+		img.onerror = () => {
+			alert('Wrong Type');
+		}
 		if (file)
-			reader.readAsDataURL(file);
-		var preview_img = document.getElementById('photo');
-			preview_img.classList.add('.preview_img');
-		saveButton.style.display = 'inline';
+			img.src = _URL.createObjectURL(file);
+	//	varsaveButton	= document.querySelector('#save'),
+		// var preview = document.querySelector('#photo');
+		// var file    = document.querySelector('input[type=file]').files[0];
+		// var reader  = new FileReader();
+		//
+		// console.log(evt);
+		// if (file)
+		// 	reader.readAsDataURL(file);
+		// var preview_img = document.getElementById('photo');
+		// 	preview_img.classList.add('.preview_img');
+		// saveButton.style.display = 'inline';
 	}
 
 /* Function to flash screen*/
 	function flash(e){
-  	  	var myimg = document.getElementsByTagName('body')[0];
+  	  	const myimg = document.getElementsByTagName('body')[0];
   	  //		var video_img = document.querySelectorAll("#video img");
   	  	myimg.classList.add('flash');
   	  	setTimeout(function () {
