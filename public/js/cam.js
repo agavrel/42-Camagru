@@ -29,7 +29,6 @@
 	  canvas.width = width;
 	  canvas.height = height;
 	  // set the colour
-	  ctx.fillStyle = colour;
 
 	var height 		= 0,
 		mousedown	= false,
@@ -187,9 +186,10 @@
 */
 
 	function messageAnimation(mymsg, msg) {
-		alert.classList.add("fadein");
+
 		alert.style.display = 'inline';
 		alert.innerHTML = msg;
+		mymsg.classList.add("fadein");
 		setTimeout(function () {
 			mymsg.classList.remove("fadein");
 			mymsg.classList.add("fadeout");
@@ -245,6 +245,7 @@
 
 /* drawing functions */
 	function draw() {
+		ctx.fillStyle = colour;
 		if (mousedown) {
 			// start a path and paint a circle of 20 pixels at the mouse position
 			ctx.beginPath();

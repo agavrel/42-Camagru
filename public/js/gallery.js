@@ -19,11 +19,7 @@ for (i; i < length; i++) {
 		comButton[i].addEventListener("click", comment);
 		comButton[i].params = [xhr, currImg[i], comButton[i]];
 		likeButton[i].addEventListener("click", function() {
-			if (this.src.indexOf("empty") !== -1) {
-				like(this, xhr);
-			} else {
-				unlike(this, xhr);
-			}
+			like(this, xhr, (this.src.indexOf("empty") !== -1) ? 1 : -1);
 		});
 	}
 };
@@ -179,11 +175,7 @@ window.onscroll = function() {
 							cloneDiv.childNodes[5].addEventListener("click", getUser);
 							cloneDiv.childNodes[5].params = [xhr, cloneDiv.childNodes[3]];
 							cloneDiv.childNodes[3].addEventListener("click", function() {
-								if (this.src.indexOf("empty") !== -1) {
-									like(this, xhr);
-								} else {
-									unlike(this, xhr);
-								}
+								like(this, xhr, (this.src.indexOf("empty") !== -1) ? 1 : -1);
 							});
 						}
 						//Put div on page
@@ -199,25 +191,15 @@ window.onscroll = function() {
 
 
 
-function like(likeClicked, xhr)
+function like(likeClicked, xhr, value)
 {
 	xhr.open('POST', url() + 'Usergallery/like', true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	likeClicked.src = "../public/resources/colored_heart.png";
-	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) + 1;
+	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) + value;
 	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
 	xhr.send('image_path=' + likeClicked.id);
 
-}
-
-function unlike(likeClicked, xhr)
-{
-	xhr.open('POST', url() + 'Usergallery/unlike', true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	likeClicked.src = "../public/resources/empty_heart.png";
-	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) - 1;
-	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
-	xhr.send('image_path=' + likeClicked.id);
 }
 
 /* share on facebook */
