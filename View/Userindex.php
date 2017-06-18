@@ -87,9 +87,11 @@ https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
 	<div style="text-align: center; display: block;">
 		<img src="" id="photo" style="display: none;">
 	</div>
-	<canvas class="canvas"></canvas>
 </div>
 <!-- end of b) div -->
+<canvas class="canvas"></canvas>
+
+
 
 <!-- Video -->
 
@@ -97,6 +99,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
 <!-- Save Picture -->
 	<div style="margin-bottom: 10px;">
 		<button id="save" class="btn btn-primary" style="display: none;">Save picture</button>
+		<button id="download_btn" class="btn btn-primary" style="display: none;">Download picture</button>
 	</div>
 </div>
 <script src="../public/js/cam.js"></script>

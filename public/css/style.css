@@ -78,6 +78,19 @@ body.flash:before {
 }
 
 /* Css for helpbox */
+#howToUse
+{
+	outline: 0;/* no blue arround button */
+	letter-spacing: 1px;
+	border: 1px solid grey;
+	color: white;
+	background: black;
+	border-radius: 4px;
+	background-color: #333;
+	text-shadow: 0 0 3px white; /* light text */
+
+}
+
 #helpBox {
     display: none;
     background: black;
@@ -178,9 +191,27 @@ img.img_preview {
 	justify-content: space-between;
 }
 
+/* fade in and out the alert */
+#save-success {
+    transition: opacity 0.6s ease-in-out;
+}
+.fadein, .fadeout {
+    opacity: 0;
+}
+.fadein {
+    opacity: 1;
+}
+
+/* display alert */
 .alert {
+	text-align: center;
+	display: none;
+	Position:fixed;
+	Left:0;
+	Right:0;
+	Top:0;
+	Height:25px;
 	padding: 15px;
-	margin-bottom: 20px;
 	border: 1px solid transparent;
 	border-radius: 4px;
 	width: 100%;
@@ -230,18 +261,6 @@ img.image {
 	height: 100%;
 }
 
-#howToUse
-{
-	outline: 0;/* no blue arround button */
-	letter-spacing: 1px;
-	border: 1px solid grey;
-	color: white;
-	background: black;
-	border-radius: 4px;
-	background-color: #333;
-	text-shadow: 0 0 3px white; /* light text */
-
-}
 
 #close
 {

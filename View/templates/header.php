@@ -29,5 +29,6 @@
 		</div>
 	</div>
 </div>
+<div class='alert alert-success fadein' id="save-success"></div>
 <div class="container">
 	<div class="starter-template">

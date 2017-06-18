@@ -1,10 +1,13 @@
-/**************************************** Global variables ******************************/
+/**************************************** Global constiables ******************************/
 (function() {
 
-  var streaming = false,
+  const
 	  video       	= document.querySelector('#video'),
+	  download_btn	= document.querySelector('#download_btn'),
 	  cover       	= document.querySelector('#cover'),
 	  canvas      	= document.querySelector('.canvas'),
+	  ctx 			= canvas.getContext("2d"),
+	  colour 		= 'deeppink',
 	  photo       	= document.querySelector('#photo'),
 	  upload      	= document.querySelector('#getval'),
 	  startbutton 	= document.querySelector('#startbutton'),
@@ -15,13 +18,22 @@
 	  helpBox		= document.querySelector('#helpBox'),
 	  cam_container	= document.querySelector('#cam_container'),
 	  close			= document.querySelector('#close'),
+	  alert			= document.querySelector('.alert'),
 	  gS_checked	= false,
 	  width 		= 500,
-	  height 		= 0,
 	  mousePos 		= {
 	  	x: 0,
 	  	y: 0
 	  };
+
+	  canvas.width = width;
+	  canvas.height = height;
+	  // set the colour
+	  ctx.fillStyle = colour;
+
+	var height 		= 0,
+		mousedown	= false,
+		streaming	= false;
 
 
 	navigator.getMedia = (navigator.getUserMedia ||
@@ -36,7 +48,7 @@
 		if (navigator.mozGetUserMedia) {
 			video.mozSrcObject = stream;}
 		else {
-			var vendorURL = window.URL || window.webkitURL;
+			const vendorURL = window.URL || window.webkitURL;
 			video.src = vendorURL.createObjectURL(stream); }
 		video.play(); },
 	function(err) {
@@ -94,15 +106,14 @@
 /* save picture function */
 	save.addEventListener('click', function(){
 		savePicture();
-		saveButton.style.display = 'none';
-
-		photo.style.display = 'none';
-		var alert = document.createElement('div'),
-			container = document.getElementById('cam_container');
-		alert.className = 'alert alert-success';
-		container.insertBefore(alert, container.firstChild);
-		alert.appendChild(document.createTextNode("Your picture has been saved"));
+		messageAnimation(alert, "Your picture has been saved");
 	});
+
+/* download function */
+	download_btn.addEventListener('click', function() {
+
+		downloadCanvas(this, 'canvas', 'myPicture.png');
+	}, false);
 
 /* take picture function */
 	startbutton.addEventListener('click', function(ev){
@@ -114,7 +125,7 @@
 /* add filter function */
 	addFilter.addEventListener('click', function(){
 		if (document.querySelector('input[name="filter"]:checked')) {
-			var base_image = new Image(),
+			const base_image = new Image(),
 			filter = document.querySelector('input[name="filter"]:checked').value;
 
 			base_image.src = '../public/resources/filter/' + filter;
@@ -124,7 +135,7 @@
 		}
 		else
 		{
-			var alert = document.createElement('div'),
+			const alert = document.createElement('div'),
 				container = document.getElementById('cam_container');
 
 			alert.className = 'alert alert-danger';
@@ -133,15 +144,39 @@
 		}
 	});
 
+
+	/* draw functions listeners */
+	// get the mouse position on the canvas (some browser trickery involved)
+	canvas.addEventListener( 'mousemove', function( event ) {
+	  if (event.offsetX ) {
+	    mouseX = event.offsetX;
+	    mouseY = event.offsetY;
+	  }
+	  else {
+	    mouseX = event.pageX - event.target.offsetLeft;
+	    mouseY = event.pageY - event.target.offsetTop;
+	  }
+	  // call the draw function
+	  draw();
+	}, false );
+
+	canvas.addEventListener( 'mousedown', function( event ) {
+	    mousedown = true;
+	}, false );
+	canvas.addEventListener( 'mouseup', function( event ) {
+	    mousedown = false;
+	}, false );
+
+
 /*************************************** Functions ********************************/
 
 /* not usefull anymore since using css below
 	function greyScale() {
-		var imgPixels = canvas.getContext('2d').getImageData(0, 0, width, height);
-		for(var y = 0; y < imgPixels.height; y++){
-			for(var x = 0; x < imgPixels.width; x++){
-				var i = (y * 4) * imgPixels.width + x * 4;
-				var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+		const imgPixels = canvas.getContext('2d').getImageData(0, 0, width, height);
+		for(const y = 0; y < imgPixels.height; y++){
+			for(const x = 0; x < imgPixels.width; x++){
+				const i = (y * 4) * imgPixels.width + x * 4;
+				const avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
 				imgPixels.data[i] = avg;
 				imgPixels.data[i + 1] = avg;
 				imgPixels.data[i + 2] = avg;
@@ -151,12 +186,24 @@
 	}
 */
 
+	function messageAnimation(mymsg, msg) {
+		alert.classList.add("fadein");
+		alert.style.display = 'inline';
+		alert.innerHTML = msg;
+		setTimeout(function () {
+			mymsg.classList.remove("fadein");
+			mymsg.classList.add("fadeout");
+		}, 1000);
+		/* 2sd to fadeout and fadeout during 600ms (css for save-success) = 2600 */
+		setTimeout(function () {
+			//alert.remove();
+			alert.style.display = 'none';
+		}, 1600);
+	}
+
 /* Function activated when clicking on picture button and applying css */
 	function takePicture() {
-		var ctx = canvas.getContext("2d");
-		var currentClass = document.getElementById('video').className;
-		canvas.width = width;
-		canvas.height = height;
+		const currentClass = document.getElementById('video').className;
 		switch(currentClass) {
 		    case "filter_sepia":
 		        ctx.filter = "sepia(1)";
@@ -183,8 +230,8 @@
 		        ctx.filter = "";
 		}
 		ctx.drawImage(video, 0, 0, width, height);
-		var data = canvas.toDataURL('image/png');
-		var alertMessage_ok = document.getElementsByClassName('alert alert-success'),
+		const data = canvas.toDataURL('image/png');
+		const alertMessage_ok = document.getElementsByClassName('alert alert-success'),
 			alertMessage_fail = document.getElementsByClassName('alert alert-danger'),
 			container = document.getElementById('cam_container');
 		if (alertMessage_ok.length != 0)
@@ -192,42 +239,53 @@
 		if (alertMessage_fail.length != 0)
 			container.removeChild(container.childNodes[0]);
 		saveButton.style.display = 'inline';
+		download_btn.style.display = 'inline';
 		flash();
 	}
 
-	/* preview file mannually dragged */
+/* drawing functions */
+	function draw() {
+		if (mousedown) {
+			// start a path and paint a circle of 20 pixels at the mouse position
+			ctx.beginPath();
+			ctx.arc( mouseX, mouseY, 4 , 0, Math.PI*2, true );
+			ctx.closePath();
+			ctx.fill();
+		}
+	}
+
+	function downloadCanvas(link, canvasId, filename) {
+    	link.href = document.getElementById(canvasId).toDataURL('image/jpeg', 0.9);
+    	link.download = filename;
+	}
+
+/* preview file mannually dragged */
 	// for eg const obj = { id: 1};
 	// const { id } = obj;
 	// destructuring for handles error of undefined.
 	function previewFile({ target: { files } }) {
 		const img = new Image();
 		const _URL = window.URL || window.webkitURL;
-		// const { files } = target;
 		const file = files[0];
+
 		img.onload = () => {
 		}
 		img.onerror = () => {
 			alert('Wrong Type');
 		}
 		if (file)
+		{
 			img.src = _URL.createObjectURL(file);
-	//	varsaveButton	= document.querySelector('#save'),
-		// var preview = document.querySelector('#photo');
-		// var file    = document.querySelector('input[type=file]').files[0];
-		// var reader  = new FileReader();
-		//
-		// console.log(evt);
-		// if (file)
-		// 	reader.readAsDataURL(file);
-		// var preview_img = document.getElementById('photo');
-		// 	preview_img.classList.add('.preview_img');
-		// saveButton.style.display = 'inline';
+			photo.src = img.src;
+		}
+		saveButton.style.display = 'inline';
+		download_btn.style.display = 'inline';
 	}
 
 /* Function to flash screen*/
 	function flash(e){
   	  	const myimg = document.getElementsByTagName('body')[0];
-  	  //		var video_img = document.querySelectorAll("#video img");
+  	  //		const video_img = document.querySelectorAll("#video img");
   	  	myimg.classList.add('flash');
   	  	setTimeout(function () {
   	  	myimg.classList.remove('flash');}, 300);
@@ -235,7 +293,7 @@
 
 /* Function to save picture */
 	function savePicture()	{
-	var head = /^data:image\/(png|jpeg);base64,/,
+	const head = /^data:image\/(png|jpeg);base64,/,
 		xhr = new XMLHttpRequest(),
 		data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
 
