@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php $form = new Form(); ?>
 <div class="sign-pages">
 <h1>Change Password</h1><br>
@@ -11,3 +13,5 @@
 	<?= $form->submit('reset', 'Reset', 'btn btn-primary'); ?>
 </form>
 </div>
+</body>
+</html>

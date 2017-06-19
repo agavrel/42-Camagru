@@ -12,7 +12,7 @@
 	</form>
 
 	<hr>
-	<p>Already have an account? <a href='http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignin/SignIn/'>Sign in</a></p>
+	<p>Already have an account? <a href='http://localhost:<?= PORT ?>/<?= Routeur::$url['dir']; ?>/authsignin/SignIn/' class="gold">Sign in</a></p>
 	</div>
 </body>
 </html>

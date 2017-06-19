@@ -20,7 +20,7 @@
 </form>
 
 <hr>
-<span>Don't have an account yet? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/">Sign up</a></span>
+<span>Don't have an account yet? <a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/authsignup/View/" class="gold">Sign up !</a></span>
 <br>
-<a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/Resetpwd/View/" style="text-align: right;">Forgot password?</a>
+<a href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/Resetpwd/View/" style="text-align: right;" class="gold">Forgot password?</a>
 <div>

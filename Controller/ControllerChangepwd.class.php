@@ -31,14 +31,14 @@ class ControllerChangepwd extends Controller
 										'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
 							);
 				self::$up->update_value('users', $set, $conditions);
-				$this->add_buff('password_changed', '<div class="alert alert-success">Your password has been changed</div>');
-				// redirect to sign in page !!
+				echo '<script type="text/javascript">messageAnimation("Your password has been changed", 2000); window.location.href = "../Userindex/view";</script>';
 			}
 			else
-				$this->add_buff('wrong_link', '<div class="alert alert-danger">Url address not valid</div>');
+				echo '<script type="text/javascript">', 'messageAnimation("Url address not valid", 2000);', '</script>';
 		}
 		else
-			$this->add_buff('invalid_password_confirmation', '<div class="alert alert-danger">Invalid password confirmation</div>');
+			echo '<script type="text/javascript">', 'messageAnimation("Invalid password confirmation", 2000);', '</script>';
 	}
 }
+?>
 <script type="text/javascript" src="../public/js/misc.js"></script>

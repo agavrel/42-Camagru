@@ -395,6 +395,18 @@ img.image {
 	background-color: #333;
 }
 
+/* hyperlinks like Sign In, Sign Up*/
+.gold {
+	color: gold;
+
+
+}
+
+.gold:hover {
+	color: white;
+	text-shadow: 0 0 3px white;
+}
+
 /*------------- Drag and Drop -------------------*/
 #upload_mode {
 	display:none;
