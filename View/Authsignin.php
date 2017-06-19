@@ -1,18 +1,7 @@
 <?php $form = new Form($_POST); ?>
 <div class="sign-pages">
 <h1>Sign in</h1><br>
-<?php
-	if (isset($wrong_pwd))
-		echo $wrong_pwd;
-	if (isset($wrong_log))
-		echo $wrong_log;
-	if (isset($no_access))
-		echo $no_access;
-	if (isset($alert_disconnected))
-		echo $alert_disconnected;
-	if (isset($email_not_confirmed))
-		echo $email_not_confirmed;
-?>
+
 <form method="post" action="<?= Routeur::redirect("Authsignin/signin"); ?>">
     <?= $form->input('login', 'Login'); ?>
     <?= $form->input('password', 'Password', ['type' => 'password']); ?>

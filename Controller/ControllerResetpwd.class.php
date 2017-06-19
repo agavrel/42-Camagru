@@ -25,7 +25,7 @@ class ControllerResetpwd extends Controller
 			{
 				$emailFrom = 'no-reply@camagru.com';
 				$subject = "Camagru - Reset your password";
-				$message = '<html>Hi ' . ucfirst($req['login']) . '</br></br>To reset your password, click on the link below:</br></br>http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Changepwd/view/' . $req['password'] . '/' . $req['id'] . '</br></br>Kind regards,</br></br>Team Camagru</html>';
+				$message = 'Hi ' . ucfirst($req['login']) . '</br></br>To reset your password, click on the link below:</br></br>http://localhost:' . PORT . '/' . Routeur::$url['dir'] . '/Changepwd/view/' . $req['password'] . '/' . $req['id'] . '</br></br>Kind regards,</br></br>Team Camagru';
 				$headers = "From: " . $emailFrom . "\r\n";
 				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 				mail($email, $subject, $message);

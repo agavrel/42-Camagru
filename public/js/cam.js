@@ -3,7 +3,6 @@
 
   const
 	  video       	= document.querySelector('#video'),
-	  download_btn	= document.querySelector('#download_btn'),
 	  cover       	= document.querySelector('#cover'),
 	  canvas      	= document.querySelector('.canvas'),
 	  ctx 			= canvas.getContext("2d"),
@@ -107,12 +106,6 @@
 		savePicture();
 		messageAnimation(alert, "Your picture has been saved");
 	});
-
-/* download function */
-	download_btn.addEventListener('click', function() {
-
-		downloadCanvas(this, 'canvas', 'myPicture.png');
-	}, false);
 
 /* take picture function */
 	startbutton.addEventListener('click', function(ev){
@@ -239,7 +232,6 @@
 		if (alertMessage_fail.length != 0)
 			container.removeChild(container.childNodes[0]);
 		saveButton.style.display = 'inline';
-		download_btn.style.display = 'inline';
 		flash();
 	}
 
@@ -255,10 +247,6 @@
 		}
 	}
 
-	function downloadCanvas(link, canvasId, filename) {
-    	link.href = document.getElementById(canvasId).toDataURL('image/jpeg', 0.9);
-    	link.download = filename;
-	}
 
 /* preview file mannually dragged */
 	// for eg const obj = { id: 1};
@@ -280,7 +268,6 @@
 			photo.src = img.src;
 		}
 		saveButton.style.display = 'inline';
-		download_btn.style.display = 'inline';
 	}
 
 /* Function to flash screen*/

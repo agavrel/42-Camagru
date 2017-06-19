@@ -18,7 +18,10 @@ class ControllerChangepwd extends Controller
 
 	public function updatePwd()
 	{
-		if($_POST['password'] === $_POST['password2'])
+		// warning : password can be unsecured when changed.
+		print_r($_POST);
+		$pwd = htmlspecialchars($_POST['password']);
+		if ($pwd === htmlspecialchars($_POST['password2']))
 		{
 			$conditions = array(
 									'password'		=>		"'" . Routeur::$url['params'][0] . "'",
@@ -28,7 +31,7 @@ class ControllerChangepwd extends Controller
 			if (isset($req) && !empty($req))
 			{
 				$set = array(
-										'password'		=>		"'" . hash('whirlpool', $_POST['password']) . "'"
+										'password'		=>		"'" . hash('whirlpool', $pwd) . "'"
 							);
 				self::$up->update_value('users', $set, $conditions);
 				echo '<script type="text/javascript">messageAnimation("Your password has been changed", 2000); window.location.href = "../Userindex/view";</script>';
@@ -41,4 +44,4 @@ class ControllerChangepwd extends Controller
 	}
 }
 ?>
-<script type="text/javascript" src="../public/js/misc.js"></script>
+<script type="text/javascript" src="../../../public/js/misc.js"></script>
