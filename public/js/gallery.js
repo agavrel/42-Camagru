@@ -201,5 +201,3 @@ function like(likeClicked, xhr, value)
 	xhr.send('image_path=' + likeClicked.id);
 
 }
-
-/* share on facebook */
