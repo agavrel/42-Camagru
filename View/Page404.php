@@ -10,6 +10,11 @@
 </head>
 <body>
   <h1>Seems like your page doesn't exist anymore !</h1>
-  <img id="error404" src="https://profile.intra.42.fr/images/1-sorry.gif"></img>
+  <img id="error404" src=""></img>
 </body>
 </html>
+<script type="text/javascript">
+	let rand = Math.floor(Math.random() * (4 - 1) + 1);
+	let img = document.querySelector("#error404");
+	img.setAttribute("src", "https://profile.intra.42.fr/images/"+rand+"-sorry.gif");
+</script>
