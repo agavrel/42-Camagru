@@ -15,7 +15,7 @@
 ?>
 <form method="post" action="<?= Routeur::redirect("Authsignin/signin"); ?>">
     <?= $form->input('login', 'Login'); ?>
-    <?= $form->input('password', 'Password', ['type' => 'password']); ?> 
+    <?= $form->input('password', 'Password', ['type' => 'password']); ?>
     <?= $form->submit('sign_in', 'Login', 'btn btn-primary'); ?>
 </form>
 

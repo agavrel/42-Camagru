@@ -1,3 +1,7 @@
+<head>
+	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/style.css" rel="stylesheet">
+</head>
+<div class='alert alert-success fadein' id="save-success"></div>
 <?php
 
 
@@ -36,3 +40,4 @@ class ControllerChangepwd extends Controller
 			$this->add_buff('invalid_password_confirmation', '<div class="alert alert-danger">Invalid password confirmation</div>');
 	}
 }
+<script type="text/javascript" src="../public/js/misc.js"></script>

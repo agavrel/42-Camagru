@@ -1,3 +1,7 @@
+<head>
+	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/style.css" rel="stylesheet">
+</head>
+<div class='alert alert-success fadein' id="save-success"></div>
 <?php
 
 class ControllerResetpwd extends Controller
@@ -31,3 +35,4 @@ class ControllerResetpwd extends Controller
 		}
 	}
 }
+<script type="text/javascript" src="../public/js/misc.js"></script>

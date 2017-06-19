@@ -1,3 +1,7 @@
+<head>
+	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/style.css" rel="stylesheet">
+</head>
+<div class='alert alert-success fadein' id="save-success"></div>
 <?php
 
 class ControllerAuthsignup extends Controller
@@ -13,12 +17,12 @@ class ControllerAuthsignup extends Controller
 		{
 			if (!isset($errors['password']) && !preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/', $_POST['password']))
 			{
-				$this->add_buff('weak_pwd', '<div class="alert alert-danger">Unsecured Password, Please use at combination of lowercase, uppercase letters and digits with special character</div>');//check for secured password
+				echo '<script type="text/javascript">', 'messageAnimation("Unsecured Password, Please use at combination of lowercase, uppercase letters and digits with special character");', '</script>';
 				return ;
 			}
 			$check = $this->checker($_POST);
 			if (!preg_match('/[a-z0-9]+@[a-z0-9]+[.][a-z]+/', $_POST['email']))
-				$this->add_buff('invalid_email', '<div class="alert alert-danger">Invalid email</div>');
+				echo '<script type="text/javascript">', 'messageAnimation("Invalid email");', '</script>';
 			else if ($check === false)
 			{
 				$insert = $this->call_model('insert');
@@ -38,20 +42,18 @@ class ControllerAuthsignup extends Controller
 									);
 				$insert->insert_value('users', $values, $attributes);
 				$this->sendEmail($_POST);
-				$this->add_buff('email_sent','<div class="alert alert-info">An email has been sent to you</div>');
+				echo '<script type="text/javascript">', 'messageAnimation("An email has been sent to you");', '</script>';
 			}
 			else
 			{
 				if ($check['login'] === $_POST['login'])
-					$this->add_buff('already_taken', '<div class="alert alert-danger">Login already taken</div>');
+					echo '<script type="text/javascript">', 'messageAnimation("Login already used");', '</script>';
 				else
-					$this->add_buff('already_taken', '<div class="alert alert-danger">Email already taken</div>');
+					echo '<script type="text/javascript">', 'messageAnimation("Email already used");', '</script>';
 			}
 		}
 		else
-		{
-			$this->add_buff('wrong_password_confirmation', '<div class="alert alert-danger">Invalid password confirmation</div>');
-		}
+			echo '<script type="text/javascript">', 'messageAnimation("Invalid password confirmation");', '</script>';
 	}
 
 	private function checker($posts)
@@ -81,3 +83,4 @@ class ControllerAuthsignup extends Controller
 	}
 }
 ?>
+<script type="text/javascript" src="../public/js/misc.js"></script>
