@@ -1,5 +1,4 @@
 <?php
-
 class Controller
 {
 	public static $cont;
@@ -88,5 +87,4 @@ class Controller
 		return (new $name());
 	}
 }
-
 ?>

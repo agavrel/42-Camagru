@@ -17,7 +17,7 @@ class Form
     {
         $type = isset($options['type']) ? $options['type'] : 'text';
         $label = '<label>' . $label . '</label>';
-		$pholder = "Your comment here";
+		$pholder = "Your input";
         $input = '<input class="' . $htmlclass . '" type="' . $type . '" name="' . $name . '" placeholder="'. $pholder . '" required=' . $require . '>';
         return $this->surround($label . $input);
     }
@@ -36,3 +36,4 @@ class Form
         return $this->surround($img);
     }
 }
+?>

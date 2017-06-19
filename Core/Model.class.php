@@ -1,11 +1,10 @@
 <?php
-
 class Model
 {
-	private $db_dsn;
-	private $db_user;
-	private $db_pass;
-	protected  $pdo;
+	private		$db_dsn;
+	private		$db_user;
+	private		$db_pass;
+	protected	$pdo;
 
 	public function init_connection($db_dsn, $db_user = 'root', $db_pass = 'root')
 	{
@@ -21,7 +20,7 @@ class Model
 		if ($this->pdo === null){
 			$pdo = new PDO($this->db_dsn, $this->db_user, $this->db_pass);
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$this->pdo = $pdo;           
+			$this->pdo = $pdo;
 		}
 		return $this->pdo;
 	}
@@ -33,9 +32,7 @@ class Model
 			strpos($statement, 'CREATE') === 0 ||
 			strpos($statement, 'INSERT') === 0 ||
 			strpos($statement, 'DELETE') === 0)
-		{
-			return null;
-		}
+				return null;
 		$query->setFetchMode(PDO::FETCH_ASSOC);
 		if (isset($one) && !empty($one))
 			$data = $query->fetch();
@@ -50,9 +47,7 @@ class Model
 	    if(strpos($statement, 'UPDATE') === 0 ||
 	        strpos($statement, 'INSERT') === 0 ||
 	        strpos($statement, 'DELETE') === 0)
-	    {
-	        return $res;
-	    }
+	        	return $res;
 		$req->setFetchMode(PDO::FETCH_ASSOC);
 		if (isset($one) && !empty($one))
 			$data = $req->fetch();
@@ -61,3 +56,4 @@ class Model
 	    return $data;
 	}
 }
+?>
