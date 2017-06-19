@@ -1,5 +1,6 @@
 <head>
 	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/style.css" rel="stylesheet">
+	<script>document.title = "Camagru - Reset Password";</script>
 </head>
 <div class='alert alert-success fadein' id="save-success"></div>
 <?php

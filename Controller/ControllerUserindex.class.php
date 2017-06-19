@@ -1,3 +1,6 @@
+<head>
+	<script>document.title = "Camagru - Index";</script>
+</head>
 <?php
 
 class ControllerUserindex extends Controller

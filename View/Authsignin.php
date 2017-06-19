@@ -1,6 +1,6 @@
 <?php $form = new Form($_POST); ?>
 <div class="sign-pages">
-<h3>Sign in</h3><br>
+<h1>Sign in</h1><br>
 <?php
 	if (isset($wrong_pwd))
 		echo $wrong_pwd;

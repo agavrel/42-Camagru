@@ -1,3 +1,6 @@
+<head>
+	<script>document.title = "Camagru - Gallery";</script>
+</head>
 <?php
 class ControllerUsergallery extends Controller
 {
@@ -112,7 +115,7 @@ class ControllerUsergallery extends Controller
 			if (isset($_SESSION['auth']) && !empty($_SESSION['auth']))
 			{
 				echo $form->input('comment', null, null, 'form-control', false);
-		
+
 			//	echo discuss about it with Arnaud
 
 

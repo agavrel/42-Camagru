@@ -1,3 +1,6 @@
+<head>
+	<script>document.title = "Camagru - Index PHP";</script>
+</head>
 <?php
 
 class ControllerUserindexphp extends Controller
@@ -191,10 +194,10 @@ class ControllerUserindexphp extends Controller
 		echo json_encode($values);
 	}
 
-	public function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct){ 
-		$cut = imagecreatetruecolor($src_w, $src_h); 
-		imagecopy($cut, $dst_im, 0, 0, $dst_x + 100, $dst_y + 100, $src_w, $src_h); 
-		imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h); 
+	public function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct){
+		$cut = imagecreatetruecolor($src_w, $src_h);
+		imagecopy($cut, $dst_im, 0, 0, $dst_x + 100, $dst_y + 100, $src_w, $src_h);
+		imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
 		imagecopymerge($dst_im, $cut, $dst_x + 100, $dst_y + 100, 0, 0, $src_w, $src_h, $pct);
 		return $dst_im;
 	}

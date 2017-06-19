@@ -1,3 +1,6 @@
+<head>
+	<script>document.title = "Camagru - My Profile";</script>
+</head>
 <?php
 
 class ControllerUserprofile extends Controller
@@ -9,7 +12,7 @@ class ControllerUserprofile extends Controller
 			$username = ucfirst(Routeur::$url['params'][0]);
 			if ($username !== ucfirst($_SESSION['auth']))
 				$this->add_buff('username', '~ ' . $username . ' ~');
-			else	
+			else
 				$this->add_buff('username', 'Your profile page');
 		}
 		else

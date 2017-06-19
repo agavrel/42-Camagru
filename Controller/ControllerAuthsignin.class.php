@@ -1,5 +1,6 @@
 <head>
 	<link href="http://localhost:<?= PORT ?>/<?= Routeur::$url['dir'] ?>/public/css/style.css" rel="stylesheet">
+	<script>document.title = "Camagru - Sign In";</script>
 </head>
 <div class='alert alert-success fadein' id="save-success"></div>
 <?php
@@ -28,30 +29,30 @@ class ControllerAuthsignin extends Controller
 			if (isset($array) && !empty($array))
 			{
 				if ($array['email_confirmed'] === 'no')
-					echo '<script type="text/javascript">', 'messageAnimation("Please confirm your email address");', '</script>';
+					echo '<script type="text/javascript">', 'messageAnimation("Please confirm your email address", 2000);', '</script>';
 				else if (hash('whirlpool', htmlspecialchars($_POST['password'])) === $array['password'])
 				{
-					echo '<script type="text/javascript">window.location.href = "../Userindex/view";</script>';
+					echo '<script type="text/javascript">window.location.href = "../Userindex/view"; messageAnimation("Hello, you are now logged in", 2000);</script>';
 					$_SESSION['auth'] = htmlspecialchars($_POST['login']);
 
 				}
 				else
-					echo '<script type="text/javascript">', 'messageAnimation("Invalid password");', '</script>';
+					echo '<script type="text/javascript">', 'messageAnimation("Invalid password", 2000);', '</script>';
 			}
 			else
-				echo '<script type="text/javascript">', 'messageAnimation("Invalid login");', '</script>';
+				echo '<script type="text/javascript">', 'messageAnimation("Invalid login", 2000);', '</script>';
 		}
 	}
 
 	public function signOut()
 	{
 		$_SESSION['auth'] = "";
-		echo '<script type="text/javascript">', 'messageAnimation("You have been disconnected");', '</script>';
+		echo '<script type="text/javascript">', 'messageAnimation("You have been disconnected", 2000);', '</script>';
 	}
 
 	public function noAccess()
 	{
-		echo '<script type="text/javascript">', 'messageAnimation("No access rights");', '</script>';
+		echo '<script type="text/javascript">', 'messageAnimation("No access rights", 2000);', '</script>';
 	}
 
 	public function view(){
