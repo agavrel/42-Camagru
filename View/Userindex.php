@@ -53,10 +53,6 @@ Camera Mode or Upload a File?
 <!-- a) Div upload -->
 <div id="upload_mode" visibility="hidden">
 	<input type='file' id='getval'/></input>
-	<div>
-		<img src="" id="photo" display="hidden" ahref="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
-	</div>
-
 </div>
 
 <!-- b) Div visualize -->
@@ -83,9 +79,6 @@ https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
 			<button id="startbutton" class="btn btn-primary">Take picture</button>
 <!-- Add Filter -->
 			<button id="addfilter" class="btn btn-primary">Add filter</button>
-	</div>
-	<div style="text-align: center; display: block;">
-		<img src="" id="photo" style="display: none;">
 	</div>
 </div>
 <!-- end of b) div -->

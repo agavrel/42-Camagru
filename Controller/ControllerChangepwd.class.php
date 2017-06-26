@@ -18,8 +18,8 @@ class ControllerChangepwd extends Controller
 
 	public function updatePwd()
 	{
+
 		// warning : password can be unsecured when changed.
-		print_r($_POST);
 		$pwd = htmlspecialchars($_POST['password']);
 		if ($pwd === htmlspecialchars($_POST['password2']))
 		{
@@ -28,7 +28,8 @@ class ControllerChangepwd extends Controller
 									'id'			=>		"'" . intval(Routeur::$url['params'][1]) . "'"
 								);
 			$req = self::$sel->query_select('*', 'users', $conditions);
-			if (isset($req) && !empty($req))
+
+			if (isset($req) && $req)
 			{
 				$set = array(
 										'password'		=>		"'" . hash('whirlpool', $pwd) . "'"
@@ -37,11 +38,11 @@ class ControllerChangepwd extends Controller
 				echo '<script type="text/javascript">messageAnimation("Your password has been changed", 2000); window.location.href = "../Userindex/view";</script>';
 			}
 			else
-				echo '<script type="text/javascript">', 'messageAnimation("Url address not valid", 2000);', '</script>';
+				echo '<script type="text/javascript">', 'messageAnimation("User not found", 2000);', '</script>';
 		}
 		else
 			echo '<script type="text/javascript">', 'messageAnimation("Invalid password confirmation", 2000);', '</script>';
 	}
 }
 ?>
-<script type="text/javascript" src="../../../public/js/misc.js"></script>
+<script type="text/javascript" src="../public/js/misc.js"></script>

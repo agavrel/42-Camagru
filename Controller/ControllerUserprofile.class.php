@@ -2,7 +2,6 @@
 	<script>document.title = "Camagru - My Profile";</script>
 </head>
 <?php
-
 class ControllerUserprofile extends Controller
 {
 	public function view()
@@ -11,9 +10,9 @@ class ControllerUserprofile extends Controller
 		{
 			$username = ucfirst(Routeur::$url['params'][0]);
 			if ($username !== ucfirst($_SESSION['auth']))
-				$this->add_buff('username', '~ ' . $username . ' ~');
+				echo '<script type="text/javascript">messageAnimation("~ ' . $username . ' ~", 2000);</script>';
 			else
-				$this->add_buff('username', 'Your profile page');
+				echo '<script type="text/javascript">messageAnimation("Your profile page", 2000);</script>';
 		}
 		else
 			header('Location: ' . Routeur::redirect("Page404/view"));

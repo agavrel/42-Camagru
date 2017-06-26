@@ -1,7 +1,7 @@
 <?php
 
 require 'database.php';
-// require '.Core/Model.class.php';
+require '../Core/Model.class.php';
 
 $database = new Model();
 $database->init_connection("mysql:dbname=camagru;host=localhost", $DB_USER, $DB_PASSWORD);

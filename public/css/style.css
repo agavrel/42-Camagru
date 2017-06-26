@@ -433,13 +433,6 @@ input[type='file']:before {
     color: #999;
 }
 
-#photo
-{
-	margin-top: 10px;
-	width: 500px;
-	height: 375px;
-}
-
 /* used for gallery */
 .alignleft {
 	float: left;

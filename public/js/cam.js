@@ -7,7 +7,6 @@
 	  canvas      	= document.querySelector('.canvas'),
 	  ctx 			= canvas.getContext("2d"),
 	  colour 		= 'deeppink',
-	  photo       	= document.querySelector('#photo'),
 	  upload      	= document.querySelector('#getval'),
 	  startbutton 	= document.querySelector('#startbutton'),
 	  saveButton	= document.querySelector('#save'),
@@ -265,7 +264,10 @@
 		if (file)
 		{
 			img.src = _URL.createObjectURL(file);
-			photo.src = img.src;
+			img.onload = function() {
+		        ctx.drawImage(img, 0, 0, width, height);
+		        alert('the image is drawn');
+		    }
 		}
 		saveButton.style.display = 'inline';
 	}

@@ -1,27 +1,24 @@
-var likeButton = document.querySelectorAll(".like"),
-	likeMsg = document.querySelectorAll(".countLikes"),
-	comButton = document.querySelectorAll(".btn"),
-	currImg = document.querySelectorAll(".image"),
-	popUp = document.querySelector('#likersBox'),
-	userLink = document.querySelectorAll(".userLink"),
-	divInside = document.querySelector(".insideBox"),
-	close = document.querySelector("#close");
+const	likeButton = document.querySelectorAll(".like"),
+		likeMsg = document.querySelectorAll(".countLikes"),
+		comButton = document.querySelectorAll(".btn"),
+		currImg = document.querySelectorAll(".image"),
+		popUp = document.querySelector('#likersBox'),
+		userLink = document.querySelectorAll(".userLink"),
+		divInside = document.querySelector(".insideBox"),
+		close = document.querySelector("#close");
 
 for (let i = 0; i < likeButton.length; i++) {
 	if (document.addEventListener) {
 		var xhr = new XMLHttpRequest();
 
-		let value = (likeButton[i].src.indexOf("empty") !== -1) ? 1 : -1;
 		// userLink[i].href = url() + "Userprofile/view/" + userLink[i].innerHTML;
 		likeMsg[i].addEventListener("click", getUser);
 		likeMsg[i].params = [xhr, likeButton[i]];
 		comButton[i].addEventListener("click", comment);
 		comButton[i].params = [xhr, currImg[i], comButton[i]];
-		// likeButton[i].addEventListener("click", like);
 		likeButton[i].addEventListener("click", function() {
-			like(this, xhr, value);
+			like(this, xhr, (this.src.indexOf("empty") !== -1) ? 1 : -1);
 		});
-		// likeButton[i].params = [likeButton[i], xhr, value, likeMsg[i]];
 	}
 };
 
@@ -89,7 +86,6 @@ function comment(evt)
 		com_contain = button.nextSibling.nextSibling.nextSibling,
 		commenText = button.previousSibling.lastChild.value;
 
-
 	if (commenText !== "")
 	{
 		xhr.open('POST', url() + 'Usergallery/comment', true);
@@ -145,7 +141,7 @@ window.onscroll = function() {
 						i = 0;
 					if (string.indexOf('null') === 0 || string.indexOf('<!DOCTYPE') === 0)
 						return ;
-					json = JSON.parse(string);
+						json = JSON.parse(string);
 					cloneDiv.removeChild(cloneDiv.lastChild);
 
 					if (json.image_path)
@@ -176,9 +172,8 @@ window.onscroll = function() {
 							}
 							cloneDiv.childNodes[5].addEventListener("click", getUser);
 							cloneDiv.childNodes[5].params = [xhr, cloneDiv.childNodes[3]];
-							let value = (this.src.indexOf("empty") !== -1) ? 1 : -1;
 							cloneDiv.childNodes[3].addEventListener("click", function() {
-								like(this, xhr, value);
+								like(this, xhr, (this.src.indexOf("empty") !== -1) ? 1 : -1);
 							});
 						}
 						//Put div on page
@@ -196,18 +191,11 @@ window.onscroll = function() {
 
 function like(likeClicked, xhr, value)
 {
-	// var likeClicked = evt.target.params[0],
-	// 	xhr = evt.target.params[1],
-	//  	value= evt.target.params[2],
-	// 	msg = evt.target.params[3];
-
-	xhr.open('POST', url() + 'Usergallery/'+ (value < 0 ? 'unlike' : 'like'), true);
+	xhr.open('POST', url() + 'Usergallery/like', true);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	likeClicked.src = "../public/resources/"+ (value > 0 ? "colored_heart" : "empty_heart") + ".png";
-	console.log(msg)
-	var countLikes = parseInt(likeClicked.previousSibling.lastChild.lastChild.innerHTML);
-
-	likeClicked.previousSibling.lastChild.lastChild.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
+	likeClicked.src = "../public/resources/colored_heart.png";
+	var countLikes = parseInt(likeClicked.nextSibling.nextSibling.innerHTML) + value;
+	likeClicked.nextSibling.nextSibling.innerHTML = countLikes + ' like' + (countLikes > 1 ? 's' : '');
 	xhr.send('image_path=' + likeClicked.id);
 
 }

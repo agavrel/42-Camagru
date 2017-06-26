@@ -1,7 +1,7 @@
 <?php $form = new Form(); ?>
 
 <div style="text-align: center;">
-	<h2><?= $username; ?></h2>
+	<h2><?= $username; ?></h2> 
 	<div class="total_like">
 		<p>
 			<?php if ($_SESSION['auth'] === Routeur::$url['params'][0]) { ?>
